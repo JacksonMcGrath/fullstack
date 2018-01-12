@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 
 // DB
 mongoose.connect('mongodb://localhost:27017/fruits', { useMongoClient: true })
-
 // check our db 
 mongoose.connection.once('open', () => {
 	console.log('connected to mongo');
@@ -14,13 +13,16 @@ mongoose.connection.once('open', () => {
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// models 
+const Fruit = require('./models/fruits.js')
+
 // new route
 app.get('/fruits/new', (req , res) => {
 	res.render('new.ejs');
 })
 
 // create route
-app.post('/fruits', (req , res) => {
+app.post('/fruits', (req, res) => {
 	// form results live in req.body
 	if(req.body.readyToEat === 'on') {
 		req.body.readyToEat = true;
@@ -28,7 +30,13 @@ app.post('/fruits', (req , res) => {
 		req.body.readyToEat = false;
 	}
 
-	res.send(req.body)
+	console.log(req.body);
+
+	Fruit.create(req.body, (err, createdFruit) => {
+		if(err) console.log(err);
+	   	res.send(createdFruit)
+	})
+	// res.send(req.body)
 })
 
 
