@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
+// DB
+mongoose.connect('mongodb://localhost:27017/fruits', { useMongoClient: true })
+
+// check our db 
+mongoose.connection.once('open', () => {
+	console.log('connected to mongo');
+})
 
 // middleware
-
-const bodyParser = require('body-parser')
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // new route
