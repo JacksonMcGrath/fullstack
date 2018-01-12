@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fruit Index Page</title>
+</head>
+<body>
+	<h1>Fruit Index Page</h1>
+
+	<nav>
+		<a href="/fruits/new">Create New Fruit</a>
+	</nav>
+
+	<ul>
+		<% for(i = 0; i < fruits.length; i++) { %>
+			<li>
+				The
+				<a href="/fruits/<%= fruits[i].id%>">
+					<%= fruits[i].name %>
+				</a>
+				is
+			 	<%= fruits[i].color%>
+			 	. It is
+			 	<% if(!fruits[i].readyToEat) { %> not<% } %>
+			 	ready to eat.
+
+
+			</li>
+		<% } %>
+	</ul>
+
+</body>
+</html>

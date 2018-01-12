@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> <%= fruit.name %> Page</title>
+</head>
+<body>
+	<h1> <%= fruit.name %> Page</h1>
+
+	<ul>
+			<li>
+				The
+				<%= fruit.name %>
+				is
+			 	<%= fruit.color%>
+			 	. It is
+			 	<% if(!fruit.readyToEat) { %> not<% } %>
+			 	ready to eat.
+			</li>
+	</ul>
+
+	<nav>
+		<a href="/fruits">Back to all Fruits</a>
+	</nav>
+
+</body>
+</html>

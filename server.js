@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 
 const app = express();
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -13,32 +13,9 @@ mongoose.connection.once('open', () => {
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// models 
-const Fruit = require('./models/fruits.js')
-
-// new route
-app.get('/fruits/new', (req , res) => {
-	res.render('new.ejs');
-})
-
-// create route
-app.post('/fruits', (req, res) => {
-	// form results live in req.body
-	if(req.body.readyToEat === 'on') {
-		req.body.readyToEat = true;
-	} else {
-		req.body.readyToEat = false;
-	}
-
-	console.log(req.body);
-
-	Fruit.create(req.body, (err, createdFruit) => {
-		if(err) console.log(err);
-	   	res.send(createdFruit)
-	})
-	// res.send(req.body)
-})
-
+// controller
+const fruitController = require('./controllers/fruitController');
+app.use('/fruits/', fruitController);
 
 app.listen(3000, () => {
 	console.log('server listening on 3000');
